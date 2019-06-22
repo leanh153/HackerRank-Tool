@@ -65,23 +65,24 @@ $(document).ready(function () {
     </div>
 </div>`;
             body.prepend(mainUI);
-
         }
-
         handleHackerRank();
-
     }
 
     loadUI();
 
 
     function handleHackerRank() {
-        let pageTitle = $('h1.page-label').text();
+
+        // add tab's name
+
+        $('#myContent').find('a').text($('h1.page-label').text());
+
         let fileInputName = $('#input_file_name');
-        $('#myContent').find('a').text(pageTitle);
+
         $(window).scroll(function () {
-            let challangeCard = $('h4.challengecard-title').text();
-            let title = challangeCard.replace(/(Hard)?(Medium)?(Easy)?Max\s(\w*\D){7}/gm, "\n");
+            let challengeCard = $('h4.challengecard-title').text();
+            let title = challengeCard.replace(/(Hard)?(Medium)?(Easy)?Max\s(\w*\D){7}/gm, "\n");
             fileInputName.text(title);
             $('#numberLine').val(fileInputName.val().trim().split("\n").length);
             console.log("files Title: " + title);
@@ -91,8 +92,6 @@ $(document).ready(function () {
             $('#numberLine').val($('#input_file_name').val().trim().split("\n").length);
         });
 
-
-        // handle hacker rank
         $("#btnSeparate").click(function (e) {
             e.preventDefault();
             let fileNames = $('#input_file_name').val().trim();
