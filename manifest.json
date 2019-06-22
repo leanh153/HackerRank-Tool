@@ -1,0 +1,48 @@
+{
+  "name": "HackerRank Tool",
+  "description": " Zip files, download files from hackerRank, auto copy file'name of challenges",
+  "version": "1.0",
+  "manifest_version": 2,
+  "icons": {
+    "16": "icon.png",
+    "24": "icon.png",
+    "32": "icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.hackerrank.com/*"
+      ],
+
+      "css": [
+        "css/bootstrap.min.css",
+        "css/jquery-ui.css",
+        "css/content.css"
+      ],
+      "js": [
+        "js/index.js",
+        "js/jquery.js",
+        "js/popper.min.js",
+        "js/bootstrap.min.js",
+        "js/FileSaver.min.js",
+        "js/jszip.min.js",
+        "js/jquery-ui.js",
+        "js/leAnhContentFile.js"
+      ]
+    }
+  ],
+  "author": "LeAnh_Se00534x",
+  "browser_action": {
+    "default_icon": {
+      "16": "icon.png",
+      "24": "icon.png",
+      "32": "icon.png"
+    },
+    "permissions": [
+      "activeTab",
+      "downloads",
+      "tabs"
+    ]
+  }
+
+}

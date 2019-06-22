@@ -1,0 +1,60 @@
+#myContent{
+    position: fixed;
+    width: fit-content;
+    z-index: 10000;
+    height: fit-content;
+    border-radius: 10px;
+}
+
+#toggle{
+
+    border-radius: 5px;
+    border: #6610f2;
+}
+.tabContent{
+    min-width: 300px;
+    max-width: 1200px;
+    max-height: 600px;
+    height: 500px;
+    min-height: 100px;
+    z-index: 100000;
+    overflow: scroll;
+}
+
+.draggable{
+    cursor: move;
+}
+
+#floatArea{
+    max-width: 100px;
+    position: fixed;
+    z-index: 100000000;
+    top: 50%;
+    left: 20%;
+}
+
+#btnSaveFile{
+    margin-left: 5px;
+    background-color: #28a745;
+    width: fit-content;
+    height: fit-content;
+    padding: 18px 6px;
+    border-radius: 50%;
+}
+
+
+.col-12{
+    margin: 10px 0;
+    align-items: center;
+}
+
+textarea{
+    max-width: 600px;
+    min-width: 300px;
+}
+
+
+#input_file_Extension,
+#input_start_number {
+    max-width: 10rem;
+}
