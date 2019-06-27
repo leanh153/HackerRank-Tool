@@ -6,6 +6,26 @@ $(document).ready(function () {
     integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     `);
 
+    let tabs = [];
+
+    class tab {
+        constructor(name) {
+            this.id = id;
+            this.name = name;
+        }
+        create(item) { 
+            
+         }
+    }
+
+    class item {
+        constructor(id, title, link) {
+            this.id = id;
+            this.title = title;
+            this.link = link;
+        }
+
+    }
     function loadUI() {
         if (body.find($('#myContent')).length === 0) {
             let mainUI = `<div id="myContent" class="draggable ui-widget-content">
