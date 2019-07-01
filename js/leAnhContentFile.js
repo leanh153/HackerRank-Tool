@@ -7,38 +7,85 @@ $(document).ready(function () {
     `);
 
     let tabs = [];
-
-    class tab {
-        constructor(name) {
-            this.id = id;
-            this.name = name;
-        }
-        create(item) { 
-            
-         }
-    }
-
     class item {
-        constructor(id, title, link) {
-            this.id = id;
+        constructor(title, link) {
             this.title = title;
             this.link = link;
         }
 
     }
-    function loadUI() {
+
+    class tab {
+        constructor(id, name, listItem, html) {
+            this.id = id;
+            this.name = name;
+            this.listItem = listItem;
+            this.html = html;
+        }
+        
+        createFromList() {
+            if (this.listItem != null) {
+                let link = '<li><a id="tabName-' + this.id + '" href="#tabs-' + this.id + '">' + this.name + '</a></li>';
+                let content = createContent(listItem);
+            }
+        }
+
+        createFromHml() {
+            if (this.html != null) {
+                let link = '<li><a id="tabName-' + this.id + '" href="#tabs-' + this.id + '">' + this.name + '</a></li>';
+                let content = '<div class="resizable tabContent" id="tabs-' + this.id + '">' + this.html + '</div>';
+                $('#myContent ul').append(link);
+                $('#tabs').append(content);
+            }
+        }
+    }
+
+    function createToolTab() {
+        let toolHtml = `<div class="col-12" class="form-group">
+        <label for="text">Main </label>
+        <textarea id="text" class="form-control" rows="5"></textarea>
+        <br>
+    </div>
+
+    <div class="col-12" class="form-group">
+        <label for="text1">*</label>
+        <textarea id="text1" class="form-control" rows="5"></textarea>
+        <br>
+    </div>
+
+    <div class="col-12" class="form-group">
+        <label for="text2">*.*</label>
+        <textarea id="text2" class="form-control" rows="5"></textarea>
+        <br>
+    </div>
+
+    <div class="col-12" class="form-group">
+        <label for="text3">*.*.*</label>
+        <textarea id="text3" class="form-control" rows="5"></textarea>
+        <br>
+    </div>`;
+
+    let newTab = new tab(tabs.length + 1, "Separate Tool", null, toolHtml);
+    tabs.push(newTab);
+    }
+
+    function loadContent() {
         if (body.find($('#myContent')).length === 0) {
             let mainUI = `<div id="myContent" class="draggable ui-widget-content">
-    <div class="btn btn-success fab fa-hackerrank" id="toggle"></div>
-    <div id="tabs" style="display: none;">
-        <ul>
-            <li><a id="tabName" href="#tabs-1">HackerRank</a></li>
-        </ul>
-        <div class="resizable tabContent" id="tabs-1">
-            <div class="col-12">
-            <textarea id="input_file_name" class="form-control"
-                      rows="6" placeholder="Enter all your file's name here, separated by new line">
-            </textarea>
+            <div class="btn btn-success fab fa-hackerrank" id="toggle"></div>
+            <div id="tabs" style="display: none;">
+                <ul>
+                </ul>
+            </div>
+        </div>`;
+            body.prepend(mainUI);
+        }
+
+        if ((document.URL).match(/https:\/\/www.hackerrank.com\/(.)*/gi)) {
+            let hackerRankhtml = `<div class="col-12">
+                <textarea id="input_file_name" class="form-control" rows="6"
+                    placeholder="Enter all your file's name here, separated by new line">
+                    </textarea>
             </div>
             <div class="col-12">
                 <div class="col-12">
@@ -62,7 +109,7 @@ $(document).ready(function () {
                     <span>Input start number</span>
                 </div>
                 <div class="col-md-6">
-
+        
                     <input type="number" id="input_start_number" class="form-control" value="1"></div>
             </div>
             <div class="col-12">
@@ -70,27 +117,146 @@ $(document).ready(function () {
             </div>
             <div id="floatArea" class="form-group draggable col-12">
                 <input type="number" class="form-control" id="numberLine" data-toggle="tooltip"
-                       title="Number line of Input Name Area !" disabled>
+                    title="Number line of Input Name Area !" disabled>
                 <small id="helpId" class="form-text text-muted">Lines in the first form</small>
                 <div id="btnSaveFileArea" style="display: none;">
-                <input type="number" class="form-control" id="numFileToSave" data-toggle="tooltip"
-                       title="Number of Files to save !" disabled>
-                <small id="helpId" class="form-text text-muted">Files to be</small>
-                <div id="btnSaveFile">Saved</div>
-</div>
-                
+                    <input type="number" class="form-control" id="numFileToSave" data-toggle="tooltip"
+                        title="Number of Files to save !" disabled>
+                    <small id="helpId" class="form-text text-muted">Files to be</small>
+                    <div id="btnSaveFile">Saved</div>
+                </div>
+        
             </div>
             <div class="col-12" id="editor"></div>
-        </div>
-    </div>
-</div>`;
-            body.prepend(mainUI);
+            `;
+            
+            let newTab = new tab(tabs.length + 1, "HackerRank", null, hackerRankhtml);
+            tabs.push(newTab);
         }
-        handleHackerRank();
+
+       createToolTab();
+        
     }
 
-    loadUI();
+    function handleTool() {
+        var textInput = $('textarea#text');
+        var text = '';
+        var textSplit = '';
 
+        var textOutput1 = $('textarea#text1');
+        var textOutput2 = $('textarea#text2');
+        var textOutput3 = $('textarea#text3');
+
+        var textToOut = '';
+        var textToOut1 = '';
+        var textToOut2 = '';
+
+
+
+        textInput.on('paste', function (e) {
+            navigator.clipboard.readText().then(clipText => {
+                text = clipText;
+                textSplit = text.split('\n');
+                pasteTo1();
+                pasteTo2();
+                pasteTo3();
+
+            });
+
+
+        });
+
+
+
+        textOutput1.on('copy', function (e) {
+            navigator.clipboard.readText().then(clipText => {
+
+                var num = clipText.slice(0, 2).toString().trim();
+                var re = RegExp('^' + num + '\\.\\d+', 'g')
+                var textToclipboard = '';
+                var array2 = textToOut1.split('\n');
+                e.preventDefault();
+                $.each(array2, function (indexInArray, valueOfElement) {
+
+                    if (valueOfElement.match(re)) {
+                        textToclipboard += valueOfElement + '\n';
+
+                    }
+                });
+                console.log(textToclipboard);
+                // copyToClipBoard(textToclipboard);
+
+                var listToCopy = textToclipboard.split('\n');
+
+                $.each(listToCopy, function (indexInArray, valueOfElement) {
+                    var num1 = valueOfElement.slice(0, 4).toString().trim();
+                    var re1 = RegExp('^' + num1 + '\\.\\d+', 'g')
+                    var textToclipboard2 = '';
+                    array2 = textToOut2.split('\n');
+
+                    $.each(array2, function (indexInArray, valueOfElement) {
+
+                        if (valueOfElement.match(re1)) {
+                            textToclipboard2 += valueOfElement + '\n';
+
+                        }
+                    });
+                    // copyToClipBoard(textToclipboard2);
+                    console.log(textToclipboard2);
+
+                    e.preventDefault();
+
+                });
+
+
+
+            });
+
+        });
+
+        function copyToClipBoard(text) {
+            var tagInBody = document.createElement('textarea');
+            document.body.appendChild(tagInBody);
+            tagInBody.setAttribute('value', text);
+            tagInBody.select();
+            document.execCommand('copy');
+            document.body.removeChild(tagInBody);
+        }
+
+        function pasteTo1() {
+            textSplit.forEach(element => {
+                if (element.match(/^\d+\s/)) {
+                    textToOut += element + '\n';
+                }
+            });
+            textOutput1.val(textToOut);
+        }
+
+        function pasteTo2() {
+
+            textSplit.forEach(element => {
+
+                if (element.match(/^\d+\.\d\s/)) {
+
+                    textToOut1 += element + '\n';
+                }
+            });
+            textOutput2.val(textToOut1);
+        }
+
+        function pasteTo3() {
+
+            textSplit.forEach(element => {
+
+                if (element.match(/^\d+\.\d+\.\d+\s/)) {
+
+                    textToOut2 += element + '\n';
+                }
+            });
+            textOutput3.val(textToOut2);
+
+        }
+    }
 
     function handleHackerRank() {
 
@@ -177,7 +343,7 @@ $(document).ready(function () {
             }
 
 
-            zip.generateAsync({type: "blob"}).then(
+            zip.generateAsync({ type: "blob" }).then(
                 function (blob) {
                     // 1 generate the zip file
                     let userName = $('span.username').text();
@@ -189,6 +355,24 @@ $(document).ready(function () {
         });
 
     }
+
+    function updateUI() {
+        tabs.forEach(tab => {
+            tab.createFromHml();
+            tab.createFromList();
+        });
+    }
+
+    loadContent();
+    updateUI();
+    handleTool();
+   
+
+    if((document.URL).match(/https:\/\/www.hackerrank.com\/(.)*/gi)){
+        handleHackerRank();
+    }
+    
+    
 
     // Behavior Event
     $('.draggable').draggable();
