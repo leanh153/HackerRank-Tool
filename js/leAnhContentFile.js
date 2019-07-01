@@ -33,41 +33,42 @@ $(document).ready(function () {
         createFromHml() {
             if (this.html != null) {
                 let link = '<li><a id="tabName-' + this.id + '" href="#tabs-' + this.id + '">' + this.name + '</a></li>';
-                let content = '<div class="resizable tabContent" id="tabs-' + this.id + '">' + this.html + '</div>';
+                let content = '<div class="resizable tabContent" id="tabs-' + this.id + '"><div class="row">' + this.html + '</div></div>';
                 $('#myContent ul').append(link);
                 $('#tabs').append(content);
             }
         }
     }
 
-    function createToolTab() {
-        let toolHtml = `<div class="col-12" class="form-group">
-        <label for="text">Main </label>
-        <textarea id="text" class="form-control" rows="5"></textarea>
+    function pushToolTab() {
+        let toolHtml = `<div class="col-md-6" class="form-group">
+        <label for="text">Paste list number title here like 1.1.1 and 1.1.2</label>
+        <textarea id="text" class="form-control"  rows="8"></textarea>
         <br>
     </div>
 
-    <div class="col-12" class="form-group">
-        <label for="text1">*</label>
-        <textarea id="text1" class="form-control" rows="5"></textarea>
+    <div class="col-md-6" class="form-group">
+        <label for="text1">Out put level 1</label>
+        <textarea id="text1" class="form-control" rows="8"></textarea>
         <br>
     </div>
 
-    <div class="col-12" class="form-group">
-        <label for="text2">*.*</label>
-        <textarea id="text2" class="form-control" rows="5"></textarea>
+    <div class="col-md-6" class="form-group">
+        <label for="text2">Out put level 2</label>
+        <textarea id="text2" class="form-control" rows="8"></textarea>
         <br>
     </div>
 
-    <div class="col-12" class="form-group">
-        <label for="text3">*.*.*</label>
-        <textarea id="text3" class="form-control" rows="5"></textarea>
+    <div class="col-md-6" class="form-group">
+        <label for="text3">Out put level 3</label>
+        <textarea id="text3" class="form-control" rows="8"></textarea>
         <br>
     </div>`;
 
     let newTab = new tab(tabs.length + 1, "Separate Tool", null, toolHtml);
     tabs.push(newTab);
     }
+
 
     function loadContent() {
         if (body.find($('#myContent')).length === 0) {
@@ -134,8 +135,9 @@ $(document).ready(function () {
             tabs.push(newTab);
         }
 
-       createToolTab();
-        
+       pushToolTab();
+
+    
     }
 
     function handleTool() {
@@ -165,63 +167,6 @@ $(document).ready(function () {
 
 
         });
-
-
-
-        textOutput1.on('copy', function (e) {
-            navigator.clipboard.readText().then(clipText => {
-
-                var num = clipText.slice(0, 2).toString().trim();
-                var re = RegExp('^' + num + '\\.\\d+', 'g')
-                var textToclipboard = '';
-                var array2 = textToOut1.split('\n');
-                e.preventDefault();
-                $.each(array2, function (indexInArray, valueOfElement) {
-
-                    if (valueOfElement.match(re)) {
-                        textToclipboard += valueOfElement + '\n';
-
-                    }
-                });
-                console.log(textToclipboard);
-                // copyToClipBoard(textToclipboard);
-
-                var listToCopy = textToclipboard.split('\n');
-
-                $.each(listToCopy, function (indexInArray, valueOfElement) {
-                    var num1 = valueOfElement.slice(0, 4).toString().trim();
-                    var re1 = RegExp('^' + num1 + '\\.\\d+', 'g')
-                    var textToclipboard2 = '';
-                    array2 = textToOut2.split('\n');
-
-                    $.each(array2, function (indexInArray, valueOfElement) {
-
-                        if (valueOfElement.match(re1)) {
-                            textToclipboard2 += valueOfElement + '\n';
-
-                        }
-                    });
-                    // copyToClipBoard(textToclipboard2);
-                    console.log(textToclipboard2);
-
-                    e.preventDefault();
-
-                });
-
-
-
-            });
-
-        });
-
-        function copyToClipBoard(text) {
-            var tagInBody = document.createElement('textarea');
-            document.body.appendChild(tagInBody);
-            tagInBody.setAttribute('value', text);
-            tagInBody.select();
-            document.execCommand('copy');
-            document.body.removeChild(tagInBody);
-        }
 
         function pasteTo1() {
             textSplit.forEach(element => {
@@ -259,10 +204,6 @@ $(document).ready(function () {
     }
 
     function handleHackerRank() {
-
-        // add tab's name
-
-        $('#myContent').find('a').text($('h1.page-label').text());
 
         let fileInputName = $('#input_file_name');
 
@@ -361,17 +302,17 @@ $(document).ready(function () {
             tab.createFromHml();
             tab.createFromList();
         });
-    }
 
-    loadContent();
-    updateUI();
-    handleTool();
-   
+        if((document.URL).match(/https:\/\/www.hackerrank.com\/(.)*/gi)){
+            handleHackerRank();
+        }
 
-    if((document.URL).match(/https:\/\/www.hackerrank.com\/(.)*/gi)){
-        handleHackerRank();
+        handleTool();
     }
     
+    loadContent();
+    updateUI();
+   
     
 
     // Behavior Event
