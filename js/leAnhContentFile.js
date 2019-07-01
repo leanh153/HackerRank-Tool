@@ -33,7 +33,7 @@ $(document).ready(function () {
         createFromHml() {
             if (this.html != null) {
                 let link = '<li><a id="tabName-' + this.id + '" href="#tabs-' + this.id + '">' + this.name + '</a></li>';
-                let content = '<div class="resizable tabContent" id="tabs-' + this.id + '"><div class="row">' + this.html + '</div></div>';
+                let content = '<div class="resizable tabContent" id="tabs-' + this.id + '">' + this.html + '</div>';
                 $('#myContent ul').append(link);
                 $('#tabs').append(content);
             }
@@ -41,25 +41,25 @@ $(document).ready(function () {
     }
 
     function pushToolTab() {
-        let toolHtml = `<div class="col-md-6" class="form-group">
+        let toolHtml = `<div class="col-12" class="form-group">
         <label for="text">Paste list number title here like 1.1.1 and 1.1.2</label>
         <textarea id="text" class="form-control"  rows="8"></textarea>
         <br>
     </div>
 
-    <div class="col-md-6" class="form-group">
+    <div class="col-12" class="form-group">
         <label for="text1">Out put level 1</label>
         <textarea id="text1" class="form-control" rows="8"></textarea>
         <br>
     </div>
 
-    <div class="col-md-6" class="form-group">
+    <div class="col-12" class="form-group">
         <label for="text2">Out put level 2</label>
         <textarea id="text2" class="form-control" rows="8"></textarea>
         <br>
     </div>
 
-    <div class="col-md-6" class="form-group">
+    <div class="col-12" class="form-group">
         <label for="text3">Out put level 3</label>
         <textarea id="text3" class="form-control" rows="8"></textarea>
         <br>
