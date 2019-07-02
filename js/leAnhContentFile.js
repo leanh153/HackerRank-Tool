@@ -32,10 +32,10 @@ $(document).ready(function () {
 
         createFromHml() {
             if (this.html != null) {
-                let link = '<li><a id="tabName-' + this.id + '" href="#tabs-' + this.id + '">' + this.name + '</a></li>';
-                let content = '<div class="resizable tabContent" id="tabs-' + this.id + '">' + this.html + '</div>';
-                $('#myContent ul').append(link);
-                $('#tabs').append(content);
+                let link = '<li class="nav-item"><a class="nav-link" id="tabName-' + this.id + '"  data-toggle="tab" role="tab" href="#tabs-' + this.id + '">' + this.name + '</a></li>';
+                let content = '<div class="tab-pane"  id="tabs-' + this.id + '" role="tabpanel">' + this.html + '</div>';
+                $('#myContent ul').append(link); 
+                $('#myContent .tab-content').append(content);
             }
         }
     }
@@ -74,9 +74,10 @@ $(document).ready(function () {
         if (body.find($('#myContent')).length === 0) {
             let mainUI = `<div id="myContent" class="draggable ui-widget-content">
             <div class="btn btn-success fab fa-hackerrank" id="toggle"></div>
-            <div id="tabs" style="display: none;">
-                <ul>
+            <div id="tabs" class="resizable" style="display: none;">
+                <ul class="nav nav-tabs text-dark" role="tablist"> 
                 </ul>
+                <div class="tab-content" ></div>
             </div>
         </div>`;
             body.prepend(mainUI);
@@ -312,7 +313,7 @@ $(document).ready(function () {
 
     // Behavior Event
     $('.draggable').draggable();
-    $('#tabs').tabs();
+    $('#myContent li:first-child a').tab('show');
     $('.resizable').resizable();
     $('#toggle').dblclick(function () {
         $('#tabs').toggle("slow/400/fast");
