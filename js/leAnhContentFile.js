@@ -139,24 +139,22 @@ $(document).ready(function () {
     }
 
     function handleTool() {
-        var textInput = $('textarea#text');
-        var text = '';
-        var textSplit = '';
+        let textInput = $('textarea#text');
+        let textSplit = '';
 
-        var textOutput1 = $('textarea#text1');
-        var textOutput2 = $('textarea#text2');
-        var textOutput3 = $('textarea#text3');
+        let outPutTextarea1 = $('textarea#text1');
+        let outPutTextarea2 = $('textarea#text2');
+        let outPutTextarea3 = $('textarea#text3');
 
-        var textToOut = '';
-        var textToOut1 = '';
-        var textToOut2 = '';
+        let textToOut1 = '';
+        let textToOut2 = '';
+        let textToOut3 = '';
 
 
 
         textInput.on('paste', function (e) {
             navigator.clipboard.readText().then(clipText => {
-                text = clipText;
-                textSplit = text.split('\n');
+                textSplit = clipText.split('\n');
                 pasteTo1();
                 pasteTo2();
                 pasteTo3();
@@ -169,10 +167,10 @@ $(document).ready(function () {
         function pasteTo1() {
             textSplit.forEach(element => {
                 if (element.match(/^\d+\s/)) {
-                    textToOut += element + '\n';
+                    textToOut1 += element + '\n';
                 }
             });
-            textOutput1.val(textToOut);
+            outPutTextarea1.val(textToOut1);
         }
 
         function pasteTo2() {
@@ -181,10 +179,10 @@ $(document).ready(function () {
 
                 if (element.match(/^\d+\.\d\s/)) {
 
-                    textToOut1 += element + '\n';
+                    textToOut2 += element + '\n';
                 }
             });
-            textOutput2.val(textToOut1);
+            outPutTextarea2.val(textToOut2);
         }
 
         function pasteTo3() {
@@ -193,10 +191,10 @@ $(document).ready(function () {
 
                 if (element.match(/^\d+\.\d+\.\d+\s/)) {
 
-                    textToOut2 += element + '\n';
+                    textToOut3 += element + '\n';
                 }
             });
-            textOutput3.val(textToOut2);
+            outPutTextarea3.val(textToOut3);
 
         }
     }
@@ -229,21 +227,20 @@ $(document).ready(function () {
             let startNumber = $("#input_start_number").val();
             let listName = fileNames.split("\n");
             let listTextAreaId = listName.slice(0);
+            
             for (let i = 0; i < listName.length; i++) {
                 let number = Number(startNumber) + i;
-                listName[i] = number + ". " + listName[i].replace(/\s+/g, "_") + fileNameExtension;
+                listName[i] = number + "_" + listName[i].replace(/\s+/g, "_") + fileNameExtension;
             }
-            generateEditor();
-            $("#btnSaveFileArea").show();
-
-            function generateEditor() {
+            
+            (function () {
                 let output = "";
                 for (let i = 0; i < listName.length; i++) {
-                    output =
-                        output + "<div class='row-count col-12 form-group'>" +
-                        "<label for=''>" + listName[i] + "</label>" +
-                        "<textarea id='editorText'  class='" + listTextAreaId[i].replace(/\s+/g, "") + " form-control' rows = '5'  ></textarea >" +
-                        "</div >";
+                    output += `<div class="row-count col-12 form-group"> 
+                    <label for="">` + listName[i] + `</label>
+                    <textarea id="editorText"  class="` + 
+                    listTextAreaId[i].replace(/\s+/g, "") + ` form-control" rows = "5"  ></textarea >` +
+                        `</div >`;
                 }
 
                 let editor = $('#editor');
@@ -251,8 +248,9 @@ $(document).ready(function () {
                 editor.html("");
                 editor.append(output);
                 $('#numFileToSave').val(listName.length);
-
-            }
+                $("#btnSaveFileArea").show();
+            }).call(this);
+            
         });
 
 
