@@ -1,6 +1,6 @@
 {
-  "name": "HackerRank Tool",
-  "description": " Zip files, download files from hackerRank, auto copy file'name of challenges",
+  "name": "Funix tool",
+  "description": " Zip files, download files from hackerRank, auto copy file'name of challenges. Download media file",
   "version": "1.0",
   "manifest_version": 2,
   "icons": {
@@ -11,7 +11,7 @@
   "content_scripts": [
     {
       "matches": [
-        "https://www.hackerrank.com/*"
+        "<all_urls>"
       ],
 
       "css": [
