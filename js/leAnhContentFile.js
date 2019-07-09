@@ -74,10 +74,10 @@ $(document).ready(function () {
         if (body.find($('#myContent')).length === 0) {
             let mainUI = `<div id="myContent" class="draggable ui-widget-content">
             <div class="btn btn-success fab fa-hackerrank" id="toggle"></div>
-            <div id="tabs" class="resizable" style="display: none;">
+            <div id="tabs"  style="display: none;">
                 <ul class="nav nav-tabs text-dark" role="tablist"> 
                 </ul>
-                <div class="tab-content" ></div>
+                <div class="resizable tab-content" ></div>
             </div>
         </div>`;
             body.prepend(mainUI);
@@ -205,9 +205,16 @@ $(document).ready(function () {
 
         $(window).scroll(function () {
             let challengeCard = $('h4.challengecard-title').text();
-            let title = challengeCard.replace(/(Hard)?(Medium)?(Easy)?Max\s(\w*\D){7}/gm, "\n");
+            // check if the url contain funix-lab that will treat the first regex and else
+            let title = challengeCard.replace((document.URL).match(/(funix-lab)/gi) ? /((\s{3,})|(\n))/gm 
+            : /(Hard)?(Medium)?(Easy)?Max\s(\w*\D){7}/gm , "\n");
+            console.log("challengecard: " + challengeCard);
+            console.log("title separeated by new line: " + title);
+            
             fileInputName.text(title);
             $('#numberLine').val(fileInputName.val().trim().split("\n").length);
+
+            console.log("challenge card text: " + challengeCard);
             console.log("files Title: " + title);
         });
 
@@ -237,7 +244,7 @@ $(document).ready(function () {
                 let output = "";
                 for (let i = 0; i < listName.length; i++) {
                     output += `<div class="row-count col-12 form-group"> 
-                    <label for="">` + listName[i] + `</label>
+                    <label for="" class="editable">` + listName[i] + `</label>
                     <textarea id="editorText"  class="` + 
                     listTextAreaId[i].replace(/\s+/g, "") + ` form-control" rows = "5"  ></textarea >` +
                         `</div >`;
