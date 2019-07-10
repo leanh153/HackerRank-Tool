@@ -290,7 +290,7 @@ $(document).ready(function () {
             zip.generateAsync({ type: "blob" }).then(
                 function (blob) {
                     // 1 generate the zip file
-                    let userName = $('span.username').text();
+                    let userName = $('span.username').text() || $('span.profile-username').text();
                     saveAs(blob, userName.length === 0 ? "sourcecode.zip" : userName + ".zip"); // 2) trigger the download
                 },
                 function () {
