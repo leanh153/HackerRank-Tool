@@ -227,15 +227,16 @@ $(document).ready(function () {
         $("#btnSeparate").click(function (e) {
             e.preventDefault();
             let fileNames = $('#input_file_name').val().trim();
-            if (fileNames.length === 0) {
-                alert("Please input file's name");
-                return;
-            }
-
+            let editor = $('#editor');
             let fileNameExtension = $("#input_file_Extension").val();
             let startNumber = $("#input_start_number").val();
             let listName = fileNames.split("\n");
             let listTextAreaId = listName.slice(0);
+            
+            if (fileNames.length === 0) {
+                alert("Please input file's name");
+                return;
+            }
             
             for (let i = 0; i < listName.length; i++) {
                 let number = Number(startNumber) + i;
@@ -246,13 +247,12 @@ $(document).ready(function () {
                 let output = "";
                 for (let i = 0; i < listName.length; i++) {
                     output += `<div class="row-count col-12 form-group"> 
-                    <label for="" class="editable">` + listName[i] + `</label>
+                    <label for="" class="title">` + listName[i] + `</label>
                     <textarea id="editorText"  class="` + 
                     listTextAreaId[i].replace(/\s+/g, "") + ` form-control" rows = "5"  ></textarea >` +
                         `</div >`;
                 }
 
-                let editor = $('#editor');
 
                 editor.html("");
                 editor.append(output);
