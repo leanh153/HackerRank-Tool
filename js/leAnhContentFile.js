@@ -75,10 +75,10 @@ $(document).ready(function () {
         if (body.find($('#myContent')).length === 0) {
             let mainUI = `<div id="myContent" class="draggable ui-widget-content">
             <div class="btn btn-success fab fa-hackerrank" id="toggle"></div>
-            <div id="tabs"  style="display: none;">
+            <div id="tabs" class="resizable"  style="display: none;">
                 <ul class="nav nav-tabs text-dark" role="tablist"> 
                 </ul>
-                <div class="resizable tab-content" ></div>
+                <div class="tab-content" ></div>
             </div>
         </div>`;
             body.prepend(mainUI);
