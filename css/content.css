@@ -4,7 +4,7 @@
     z-index: 10000;
     height: fit-content;
     border-radius: 10px;
-    right: 5px;
+    right: 0px;
 }
 
 #toggle{
@@ -17,7 +17,7 @@
     min-width: 300px;
     max-width: 1200px;
     max-height: 600px;
-    height: 300px;
+    height: 270px;
     min-height: 100px;
     z-index: 100000;
     overflow: scroll;
@@ -26,13 +26,26 @@
 .draggable{
     cursor: move;
 }
+.bb-compile{
+    position:  fixed !important;
+    z-index: 1000000;
+    bottom: 100px;
+    right: 80px;
+}
+
+.bb-submit{
+    position:  fixed !important;
+    z-index: 1000000;
+    bottom: 37px;
+    right: 90px;
+}
 
 #floatArea{
     max-width: 100px;
     position: fixed;
     z-index: 100000000;
     bottom: 20px;
-    right: 10px;
+    right: 0px;
 }
 
 #btnSaveFile{
