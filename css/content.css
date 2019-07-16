@@ -29,7 +29,7 @@
 .bb-compile{
     position:  fixed !important;
     z-index: 1000000;
-    bottom: 100px;
+    bottom: 85px;
     right: 80px;
 }
 
@@ -38,6 +38,16 @@
     z-index: 1000000;
     bottom: 37px;
     right: 90px;
+}
+#goToEditor{
+    position:  fixed;
+    z-index: 1000000;
+    bottom: 85px;
+    right: 190px;
+    padding-right: 4px;
+    padding-left: 4px;
+    height: 40px;
+
 }
 
 #floatArea{
