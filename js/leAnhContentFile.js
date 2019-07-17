@@ -2,7 +2,7 @@ $(document).ready(function () {
     // global variable
     let body = $('body');
     let isHackerRank = (/https:\/\/www.hackerrank.com\/(.)*/gi).test(document.URL);
-    let containEditor = body.find($('#codeshell-wrapper') ).length > 0;
+
     // list of all tabs to be displayed
     let tabs = [];
 
@@ -123,20 +123,12 @@ $(document).ready(function () {
         }
     }
 
+
     // Handle HackerRank website
     function handleHackerRank() {
 
-        // add go to hackerRank editor button
-        if (containEditor) {
-            let hackerRankEditorHref = "";
-            hackerRankEditorHref = document.URL;
-            let url = hackerRankEditorHref + "#codeshell-wrapper";
-            body.append(`
-                  <a id="goToEditor" href="`+ url + `" class="nav-item btn btn-success fas fa-code"></a>
-                   `);
-        }else{
-            $('#goToEditor').remove();
-        }
+
+
 
         let fileInputName = $('#input_file_name');
         $(window).scroll(function () {
@@ -231,6 +223,34 @@ $(document).ready(function () {
                 }
             );
         });
+
+        setTimeout(function () {
+
+            let listRecognizeEditor = ['#codeshell-wrapper', '.codeeditor-view', '.code-editor-section split'];
+            let containEditor = false;
+            let editorRecognize = null;
+            for (let i = 0; i < listRecognizeEditor.length; i++) {
+                const ele = listRecognizeEditor[i];
+                if (body.find($(ele)).length > 0) {
+                    containEditor = true;
+                    editorRecognize = listRecognizeEditor[i];
+                    
+                }
+            }
+
+            // add go to hackerRank editor button
+            if (containEditor) {
+                let hackerRankEditorHref = "";
+                hackerRankEditorHref = document.URL;
+                let url = hackerRankEditorHref + editorRecognize;
+                body.append(`
+                      <a id="goToEditor" href="`+ url + `" class="nav-item btn btn-success fas fa-code"></a>
+                       `);
+            } else {
+                $('#goToEditor').remove();
+            }
+
+        }, 4000);
 
     }
     // This append some ui to context web page
