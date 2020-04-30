@@ -8,7 +8,7 @@
     "dependencies": {
         "bootstrap": "^4.2.1",
         "file-saver": "^2.0.0",
-        "jquery": "^3.3.1",
+        "jquery": "^3.5.0",
         "jquery-ui": "^1.12.1",
         "jszip": "^3.1.5",
         "popper.js": "^1.15.0"
